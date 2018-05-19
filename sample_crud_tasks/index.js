@@ -1,5 +1,5 @@
 const AWS = require('aws-sdk');
-const dynamo = new AWS.DynamoDB.DocumentCrient();
+const dynamo = new AWS.DynamoDB.DocumentClient();
 
 exports.handler = (event, context, callback) => {
     const operation = event.method;
@@ -15,8 +15,8 @@ exports.handler = (event, context, callback) => {
             params = {
                 TableName: "SAMPLE_TASKS",
                 Item: {
-                    "id": event.body.Item.id,
-                    "task_name": event.body.Item.task_name
+                    "ID": event.body.Item.id,
+                    "taskname": event.body.Item.taskname
                 }
             };
             dynamo.put(params, callback);

@@ -1,0 +1,4 @@
+{
+    "method": "$context.httpMethod",
+    "body": $input.json('$')
+}
