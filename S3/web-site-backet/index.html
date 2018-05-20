@@ -8,10 +8,48 @@
 </head>
 <body>
     <form>
+        <input id="ID" type="text" placeholder="IDを入力">
+        <input id="taskname" type="text" placeholder="タスク名を入力">
+        <input id="submit" type="button" value="送信">
+    </form>
+    <hr/>
+    <div id="status"></div>
+    <form>
         <input id="btn" type="button" value="取得">
     </form>
     <hr/>
     <div id="result"></div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function(){
+            document.getElementById('submit').addEventListener('click',function(){
+                var status = document.getElementById('status');
+                var xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function(){
+                    if (xhr.readyState === 4){ // 通信完了
+                        if (xhr.status === 200) { // 通信成功
+                            status.textContent = '送信しました';
+                        } else {
+                            status.textContent = 'サーバーエラーが発生しました';
+                        }
+                    } else {
+                        status.textContent = '送信中';
+                    }
+                };
+                var obj = {
+                    Item : {
+                        id: document.getElementById('ID').value,
+                        taskname: document.getElementById('taskname').value
+                    }
+                };
+                var json = JSON.stringify(obj);
+                xhr.open('PUT', 'https://l3uk6hufcf.execute-api.ap-northeast-1.amazonaws.com/prod/sample-tasks', true);
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                console.log(json);
+                xhr.send(json);
+            })
+        })
+    </script>
+
     <script>
         document.addEventListener('DOMContentLoaded', function(){
             // 取得ボタンクリック時に実行される
