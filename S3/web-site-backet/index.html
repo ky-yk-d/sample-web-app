@@ -5,96 +5,44 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Page Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 </head>
-<body>
-    <form>
-        <input id="ID" type="text" placeholder="IDを入力">
-        <input id="taskname" type="text" placeholder="タスク名を入力">
-        <input id="submit" type="button" value="送信">
-    </form>
-    <hr/>
-    <div id="status"></div>
-    <form>
-        <input id="btn" type="button" value="取得">
-    </form>
-    <hr/>
-    <div id="result"></div>
-    <script>
-        document.addEventListener('DOMContentLoaded', function(){
-            document.getElementById('submit').addEventListener('click',function(){
-                var status = document.getElementById('status');
-                var xhr = new XMLHttpRequest();
-                xhr.onreadystatechange = function(){
-                    if (xhr.readyState === 4){ // 通信完了
-                        if (xhr.status === 200) { // 通信成功
-                            status.textContent = '送信しました';
-                        } else {
-                            status.textContent = 'サーバーエラーが発生しました';
-                        }
-                    } else {
-                        status.textContent = '送信中';
-                    }
-                };
-                var obj = {
-                    Item : {
-                        id: document.getElementById('ID').value,
-                        taskname: document.getElementById('taskname').value
-                    }
-                };
-                var json = JSON.stringify(obj);
-                xhr.open('PUT', 'https://l3uk6hufcf.execute-api.ap-northeast-1.amazonaws.com/prod/sample-tasks', true);
-                xhr.setRequestHeader('Content-Type', 'application/json');
-                console.log(json);
-                xhr.send(json);
-            })
-        })
-    </script>
+<body style="background-color: lightcyan">
+    <div class="container" style="text-align: center">
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function(){
-            // 取得ボタンクリック時に実行される
-            document.getElementById('btn').addEventListener('click', function(){
-                var result = document.getElementById('result');
-                var xhr = new XMLHttpRequest();
-                // 非同期通信時の処理
-                xhr.onreadystatechange = function(){
-                    if (xhr.readyState === 4){ // 通信完了
-                        if (xhr.status === 200) { // 通信成功
-                            //var data = JSON.parse(xhr.responseText);
-                            var data = xhr.response;
-                            // 結果からキーにアクセス
-                            if (data === null) {
-                                // ない場合はメッセージ
-                                result.textContent = 'データが存在しません';
-                            } else {
-                                // 取得できた場合
-                                console.log(typeof(data));
-                                console.log(data)
-                                var items = data.Items;
-                                var ul = document.createElement('ul');
-                                for (var i = 0; i < items.length; i++){
-                                    var li = document.createElement('li');
-                                    var text = document.createTextNode(items[i].ID + ' ' + items[i].taskname);
-                                    // 組み立て
-                                    li.appendChild(text);
-                                    ul.appendChild(li);
-                                }
-                                // <div id="result">の配下を置き換える
-                                result.replaceChild(ul, result.firstChild);
-                            }
-                        } else {
-                            result.textContent = 'サーバエラーが発生';
-                        }
-                    } else { // 通信中
-                        result.textContent = '通信中'
-                    }
-                };
-                // 非同期通信を開始
-                xhr.responseType = 'json';
-                xhr.open('GET', 'https://l3uk6hufcf.execute-api.ap-northeast-1.amazonaws.com/prod/sample-tasks', true);
-                xhr.send(null);
-            }, false );
-        } ,false);
-    </script>
+        <div>
+            <h2>Vue.js版</h2>
+            <div id="get-all-tasks">
+                <form>
+                    <input type="button" value="全件取得" v-on:click="getAll"/>
+                </form>
+                <table class="table table-striped">
+                    <th>ID</th><th>taskname</th>
+                    <tr v-for="(task) in items">
+                        <td>{{task.ID}}</td>
+                        <td>{{task.taskname}}</td>
+                    </tr>
+                </table>
+            </div>
+            <hr>
+        </div>
+        <form>
+            <input id="ID" type="text" placeholder="IDを入力">
+            <input id="taskname" type="text" placeholder="タスク名を入力">
+            <input id="submit" type="button" value="送信">
+        </form>
+        <hr/>
+        <div id="status"></div>
+        <form>
+            <input id="btn" type="button" value="取得">
+        </form>
+        <hr/>
+        <div id="result"></div>
+    </div>
+        <!-- Vue.js 開発バージョン、便利なコンソールの警告が含まれています -->
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <!-- axios -->
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="js/index.js"></script>
 </body>
 </html>
