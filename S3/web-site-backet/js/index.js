@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function(){
                         } else {
                             // 取得できた場合
                             console.log(typeof(data));
-                            console.log(data)
+                            console.log(data);
                             var items = data.Items;
                             var ul = document.createElement('ul');
                             for (var i = 0; i < items.length; i++){
@@ -91,6 +91,36 @@ var getAllTasks = new Vue({
             }).catch(function(error) {
                 console.log(error);
             });
+        },
+        endpoint: function(){
+            return 'https://l3uk6hufcf.execute-api.ap-northeast-1.amazonaws.com/prod/sample-tasks';
+        }
+    }
+});
+
+var tasks = new Vue({
+    el: '#tasks',
+    data: {
+        tasks:[],
+        newTask: '',
+    },
+    methods: {
+        createTask: function(){
+            //var new_id = this.tasks[this.tasks.length - 1] + 1;
+            var new_id = String(this.tasks.length);
+            this.tasks.push({id: new_id, taskname: this.newTask});
+            axios.put(this.endpoint(),{
+                Item: {
+                    id: new_id,
+                    taskname: this.newTask
+                }
+            }).then(response => {
+                console.log('送信した');
+                console.log(response);
+            }).catch(function(err){
+                console.log(err);
+            });
+            this.newTask = '';
         },
         endpoint: function(){
             return 'https://l3uk6hufcf.execute-api.ap-northeast-1.amazonaws.com/prod/sample-tasks';
