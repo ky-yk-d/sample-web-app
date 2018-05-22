@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Page Title</title>
+    <title>Vue.js & Dynamo DB</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 </head>
@@ -12,28 +12,36 @@
 
         <div>
             <h2>Vue.js版</h2>
-            <table id="tasks" class="table table-striped">
-                <thead class="thead-dark">
-                    <tr>
-                        <th>Id</th>
-                        <th>Name</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="task in tasks">
-                        <td width="3px">{{ task.id }}</td>
-                        <td>{{ task.taskname }}</td>
-                    </tr>
-                    <tr>
-                        <td>New</td>
-                        <td><input v-model="newTask" class="form-control"></td>
-                        <td>
-                            <div class="btn btn-primary" v-on:click="createTask">Create Task</div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <div id="tasks">
+                <table class="table table-striped">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="task in tasks">
+                            <td width="3px">{{ task.id }}</td>
+                            <td>{{ task.taskname }}</td>
+                        </tr>
+                        <tr>
+                            <td>New:</td>
+                            <td><input v-validate="'required'" v-model="newTask" class="form-control" name="newtaskname"></td>
+                            <td v-if="newTask === ''">
+                                <div class="btn btn-disabled" >Create Task</div> 
+                            </td>
+                            <td v-else>
+                                <div class="btn btn-primary" v-on:click="createTask">Create Task</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            <div v-if="errors.has('newtaskname')" style="color: red">
+                {{errors.first('newtaskname')}}
+            </div>
+            </div>
             <div id="get-all-tasks">
                 <form>
                     <input type="button" value="全件取得" v-on:click="getAll"/>

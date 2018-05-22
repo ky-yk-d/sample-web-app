@@ -1,3 +1,4 @@
+Vue.use(VeeValidate, {locale: 'ja'});
 document.addEventListener('DOMContentLoaded', function(){
     document.getElementById('submit').addEventListener('click',function(){
         var status = document.getElementById('status');
