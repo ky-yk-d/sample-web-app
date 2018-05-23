@@ -99,17 +99,46 @@ var getAllTasks = new Vue({
     }
 });
 
+getAllTasks.getAll();
+
 var tasks = new Vue({
     el: '#tasks',
     data: {
         tasks:[],
         newTask: '',
     },
+    computed: {
+        sortedTasks: function(){
+            return this.tasks.sort(function(a, b){
+                const Aid = a.ID.toUpperCase();
+                const Bid = b.ID.toUpperCase();
+                let comparison = 0;
+                if (Aid > Bid){
+                    comparison = 1;
+                } else if (Aid < Bid){
+                    comparison = -1;
+                }
+                return comparison;
+            });
+        }
+    },
     methods: {
+        getAll: function(){
+            this.tasks = [];
+            var tasks = this.tasks;
+            axios.get(this.endpoint()).then(response =>{
+                console.log(response);
+                response.data.Items.forEach(element => {
+                    tasks.push(element);
+                });
+            }).catch(function(error) {
+                console.log(error);
+            });
+        }, 
         createTask: function(){
             //var new_id = this.tasks[this.tasks.length - 1] + 1;
             var new_id = String(this.tasks.length);
-            this.tasks.push({id: new_id, taskname: this.newTask});
+            //this.tasks.push({id: new_id, taskname: this.newTask});
             axios.put(this.endpoint(),{
                 Item: {
                     id: new_id,
@@ -118,6 +147,7 @@ var tasks = new Vue({
             }).then(response => {
                 console.log('送信した');
                 console.log(response);
+                this.getAll();
             }).catch(function(err){
                 console.log(err);
             });
@@ -129,6 +159,7 @@ var tasks = new Vue({
     }
 });
 
+tasks.getAll();
 
 /* また今度
 var CompTask = {
