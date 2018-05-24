@@ -153,6 +153,20 @@ var tasks = new Vue({
             });
             this.newTask = '';
         },
+        deleteTask: function(taskId){
+            var id = taskId;
+            console.log(id, 'を削除する');
+            axios.delete(this.endpoint(), { param:{
+                Item: {
+                    id: taskId
+                }
+            }}).then(response => {
+                console.log('削除した');
+                this.getAll();
+            }).catch(function(err){
+                console.log(err);
+            });
+        },
         endpoint: function(){
             return 'https://l3uk6hufcf.execute-api.ap-northeast-1.amazonaws.com/prod/sample-tasks';
         }

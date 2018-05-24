@@ -18,13 +18,16 @@
                         <tr>
                             <th>Id</th>
                             <th>Name</th>
-                            <th></th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr v-for="task in sortedTasks">
                             <td width="3px">{{ task.ID }}</td>
                             <td>{{ task.taskname }}</td>
+                            <td>
+                                <div class="btn btn-secondary" v-on:click="deleteTask(task.ID)">Delete Task</div>
+                            </td>
                         </tr>
                         <tr>
                             <td>New:</td>
