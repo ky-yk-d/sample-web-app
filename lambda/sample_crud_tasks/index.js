@@ -21,6 +21,16 @@ exports.handler = (event, context, callback) => {
             };
             dynamo.put(params, callback);
             break;
+        case 'DELETE':
+            console.log(event);
+            params = {
+                TableName: 'SAMPLE_TASKS',
+                Key: {
+                    "ID": event.body.Item.id
+                }
+            };
+            dynamo.delete(params, callback);
+            break;
         default:
             callback('Unknown operation: ${operation}');
     }
