@@ -156,7 +156,11 @@ var tasks = new Vue({
         deleteTask: function(taskId){
             var id = taskId;
             console.log(id, 'を削除する');
-            axios.delete(this.endpoint() + '/' + taskId).then(response => {
+            axios.delete(this.endpoint(),{
+                params: {
+                    ID: id
+                } 
+            }).then(response => {
                 console.log('削除した');
                 console.log(response);
                 this.getAll();

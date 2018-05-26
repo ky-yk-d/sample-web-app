@@ -27,7 +27,7 @@ exports.handler = (event, context, callback) => {
             params = {
                 TableName: 'SAMPLE_TASKS',
                 Key: {
-                    "ID": event.path.split('/')[3]
+                    "ID": event.ID
                 }
             };
             dynamo.delete(params, callback);
