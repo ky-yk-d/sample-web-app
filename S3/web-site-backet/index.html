@@ -9,7 +9,7 @@
     <link rel="shortcut icon" href="images/favicon.ico" >
 </head>
 <body style="background-color: rgb(95, 255, 180)">
-    <div class="container" style="text-align: center">
+    <div class="container" style="text-align: left">
 
         <div>
             <h2 style="padding: 20px">Vue.js版</h2>
@@ -32,7 +32,7 @@
                         </tr>
                         <tr>
                             <td>New:</td>
-                            <td><input v-validate="'required'" v-model="newTask" class="form-control" name="newtaskname"></td>
+                            <td><input v-validate="'required'" v-model="newTask" class="form-control" name="newtaskname" placeholder="新しいタスク名を入力してください"></td>
                             <td v-if="newTask === ''">
                                 <div class="btn btn-disabled" >Create Task</div> 
                             </td>
@@ -42,7 +42,7 @@
                         </tr>
                     </tbody>
                 </table>
-                <div v-if="errors.has('newtaskname')" style="color: red">
+                <div v-if="errors.has('newtaskname')" style="color: red; font-size: 24px">
                     {{errors.first('newtaskname')}}
                 </div>
             </div>
