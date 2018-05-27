@@ -23,10 +23,10 @@
                     </thead>
                     <tbody>
                         <tr v-for="task in sortedTasks">
-                            <td width="3px">{{ task.ID }}</td>
+                            <td width="3px">{{ task.id }}</td>
                             <td>{{ task.taskname }}</td>
                             <td>
-                                <div class="btn btn-secondary" v-on:click="deleteTask(task.ID)">Delete Task</div>
+                                <div class="btn btn-secondary" v-on:click="deleteTask(task.id)">Delete Task</div>
                             </td>
                         </tr>
                         <tr>
@@ -45,40 +45,14 @@
                     {{errors.first('newtaskname')}}
                 </div>
             </div>
-            <div id="get-all-tasks">
-                <form>
-                    <input type="button" value="全件取得" v-on:click="getAll"/>
-                </form>
-                <table class="table table-striped">
-                    <th>ID</th><th>taskname</th>
-                    <tr v-for="(task) in items">
-                        <td>{{task.ID}}</td>
-                        <td>{{task.taskname}}</td>
-                    </tr>
-                </table>
-            </div>
-            <hr>
         </div>
-        <form>
-            <input id="ID" type="text" placeholder="IDを入力">
-            <input id="taskname" type="text" placeholder="タスク名を入力">
-            <input id="submit" type="button" value="送信">
-        </form>
-        <hr/>
-        <div id="status"></div>
-        <form>
-            <input id="btn" type="button" value="取得">
-        </form>
-        <hr/>
-        <div id="result"></div>
-    </div>
-    <!-- Vue.js 開発バージョン、便利なコンソールの警告が含まれています -->
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <!-- axios -->
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <!-- Vee-Validate -->
-    <script src="https://cdn.jsdelivr.net/npm/vee-validate@latest/dist/vee-validate.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vee-validate@latest/dist/locale/ja.js"></script>
-    <script src="js/index.js"></script>
-</body>
-</html>
+        <!-- Vue.js 開発バージョン、便利なコンソールの警告が含まれています -->
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <!-- axios -->
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <!-- Vee-Validate -->
+        <script src="https://cdn.jsdelivr.net/npm/vee-validate@latest/dist/vee-validate.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vee-validate@latest/dist/locale/ja.js"></script>
+        <script src="js/index.js"></script>
+    </body>
+    </html>

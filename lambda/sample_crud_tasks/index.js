@@ -7,15 +7,15 @@ exports.handler = (event, context, callback) => {
     switch (operation) {
         case 'GET':
             params = {
-                TableName: "SAMPLE_TASKS",
+                TableName: "tasks",
             };
             dynamo.scan(params, callback);
             break;
         case 'PUT':
             params = {
-                TableName: "SAMPLE_TASKS",
+                TableName: "tasks",
                 Item: {
-                    "ID": event.body.Item.id,
+                    "id": event.body.Item.id,
                     "taskname": event.body.Item.taskname
                 }
             };
@@ -25,9 +25,9 @@ exports.handler = (event, context, callback) => {
             console.log('event:',event);
             console.log('context:', context);
             params = {
-                TableName: 'SAMPLE_TASKS',
+                TableName: 'tasks',
                 Key: {
-                    "ID": event.ID
+                    "id": event.id
                 }
             };
             dynamo.delete(params, callback);
