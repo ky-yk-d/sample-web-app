@@ -33,27 +33,34 @@ var tasks = new Vue({
             });
         }, 
         createTask: function(){
-            var new_id;
-            if (this.tasks.length === 0){
-                new_id = 1;
-            } else {
-                new_id = this.tasks[this.tasks.length - 1].id + 1;
-            }
-            //var new_id = String(this.tasks.length);
-            //this.tasks.push({id: new_id, taskname: this.newTask});
-            axios.put(this.endpoint(),{
-                Item: {
-                    id: new_id,
-                    taskname: this.newTask
+            this.$validator.validateAll().then((result) => {
+                if (result) {
+                //エラーがなければ下記が実行される
+                    var new_id;
+                    if (this.tasks.length === 0){
+                        new_id = 1;
+                    } else {
+                        new_id = this.tasks[this.tasks.length - 1].id + 1;
+                    }
+                    //var new_id = String(this.tasks.length);
+                    //this.tasks.push({id: new_id, taskname: this.newTask});
+                    axios.put(this.endpoint(),{
+                        Item: {
+                            id: new_id,
+                            taskname: this.newTask
+                        }
+                    }).then(response => {
+                        console.log('送信した');
+                        console.log(response);
+                        this.getAll();
+                    }).catch(function(err){
+                        console.log(err);
+                    });
+                    this.newTask = '';
+                } else {
+                    console.log('エラーがあります');
                 }
-            }).then(response => {
-                console.log('送信した');
-                console.log(response);
-                this.getAll();
-            }).catch(function(err){
-                console.log(err);
             });
-            this.newTask = '';
         },
         deleteTask: function(taskId){
             var id = taskId;

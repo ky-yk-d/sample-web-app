@@ -32,9 +32,9 @@
                         </tr>
                         <tr>
                             <td>New:</td>
-                            <td><input v-validate="'required'" v-model="newTask" class="form-control" name="newtaskname" placeholder="新しいタスク名を入力してください"></td>
-                            <td v-if="newTask === ''">
-                                <div class="btn btn-disabled" >Create Task</div> 
+                            <td><input v-validate="'required'" v-model="newTask" class="form-control" name="newtaskname" placeholder="新しいタスク名を入力してください（必須項目）"></td>
+                            <td v-if="errors.has('newtaskname')">
+                                <div class="btn btn-disabled" v-on:click="createTask">Create Task</div> 
                             </td>
                             <td v-else>
                                 <div class="btn btn-primary" v-on:click="createTask">Create Task</div>
