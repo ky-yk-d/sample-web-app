@@ -9,12 +9,10 @@ var tasks = new Vue({
     computed: {
         sortedTasks: function(){
             return this.tasks.sort(function(a, b){
-                const Aid = a.id;
-                const Bid = b.id;
                 let comparison = 0;
-                if (Aid > Bid){
+                if (a.id > b.id){
                     comparison = 1;
-                } else if (Aid < Bid){
+                } else if (a.id < b.id){
                     comparison = -1;
                 }
                 return comparison;
