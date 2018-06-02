@@ -8,15 +8,18 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.0/css/bulma.min.css" />
     <link rel="shortcut icon" href="images/favicon.ico" >
 </head>
-<body style="background-color: rgb(95, 255, 180)">
-    <div class="container" style="text-align: left">
-        <div class="columns">
-            <div class="column">
-                <h2 style="padding: 20px">Vue.js版</h2>
+<body>
+    <section class="hero is-primary">
+        <div class="hero-body">
+            <h1 class="title">タスク管理画面</h1>
+            <h2 class="subtitle">Vue.js版</h2>
+        </div>
+    </section>
+    <div style="text-align: left">
                 <div id="tasks">
-                    <table class="table table-striped">
-                        <thead class="thead-dark">
-                            <tr>
+                    <table class="table is-bordered is-striped is-fullwidth">
+                        <thead>
+                           <tr>
                                 <th>Id</th>
                                 <th>Name</th>
                                 <th>Delete</th>
@@ -27,27 +30,44 @@
                                 <td width="3px">{{ task.id }}</td>
                                 <td>{{ task.taskname }}</td>
                                 <td>
-                                    <div class="btn btn-secondary" v-on:click="deleteTask(task.id)">Delete Task</div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>New:</td>
-                                <td><input v-validate="'required'" v-model="newTask" class="form-control" name="newtaskname" placeholder="新しいタスク名を入力してください（必須項目）"></td>
-                                <td v-if="errors.has('newtaskname')">
-                                    <div class="btn btn-disabled" v-on:click="createTask">Create Task</div> 
-                                </td>
-                                <td v-else>
-                                    <div class="btn btn-primary" v-on:click="createTask">Create Task</div>
+                                    <a class="button is-danger is-outlined" v-on:click="deleteTask(task.id)">
+                                        <span>Delete</span>
+                                        <span class="icon is-small">
+                                            <i class="fas fa-times"></i>
+                                        </span>
+                                    </a>
                                 </td>
                             </tr>
                         </tbody>
+                        <tfoot>
+                            <tr>
+                                <td>New</td>
+                                <td><input v-validate="'required'" v-model="newTask" class="field" name="newtaskname" placeholder="新しいタスク名を入力してください（必須項目）"></td>
+                                <td v-if="errors.has('newtaskname')">
+                                    <a class="button is-primary" disabled v-on:click="createTask">
+                                        <span>
+                                            Create
+                                        </span>
+                                        <span class="icon is-small">
+                                                <i class="fas fa-times"></i>
+                                        </span>
+                                    </a>
+                                </td>
+                                <td v-else>
+                                    <a class="button is-primary" v-on:click="createTask">
+                                        <span>Create</span>
+                                        <span class="icon is-small">
+                                                <i class="fas fa-times"></i>
+                                        </span>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tfoot>
                     </table>
-                    <div v-if="errors.has('newtaskname')" style="color: red; font-size: 24px">
+                    <div class="notification is-danger" v-if="errors.has('newtaskname')">
                         {{errors.first('newtaskname')}}
                     </div>
                 </div>
-            </div>
-        </div>
     </div>
     <!-- Vue.js 開発バージョン、便利なコンソールの警告が含まれています -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
