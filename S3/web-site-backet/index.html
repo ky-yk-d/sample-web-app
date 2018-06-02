@@ -6,6 +6,7 @@
     <title>Vue.js & Dynamo DB</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.0/css/bulma.min.css" />
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
     <link rel="shortcut icon" href="images/favicon.ico" >
 </head>
 <body>
@@ -42,14 +43,14 @@
                         <tfoot>
                             <tr>
                                 <td>New</td>
-                                <td><input v-validate="'required'" v-model="newTask" class="field" name="newtaskname" placeholder="新しいタスク名を入力してください（必須項目）"></td>
+                                <td><input v-validate="'required'" v-model="newTask" class="input" type="text" name="newtaskname" placeholder="新しいタスク名を入力してください（必須項目）"></td>
                                 <td v-if="errors.has('newtaskname')">
                                     <a class="button is-primary" disabled v-on:click="createTask">
                                         <span>
                                             Create
                                         </span>
                                         <span class="icon is-small">
-                                                <i class="fas fa-times"></i>
+                                                <i class="fas fa-plus"></i>
                                         </span>
                                     </a>
                                 </td>
@@ -57,7 +58,7 @@
                                     <a class="button is-primary" v-on:click="createTask">
                                         <span>Create</span>
                                         <span class="icon is-small">
-                                                <i class="fas fa-times"></i>
+                                                <i class="fas fa-plus"></i>
                                         </span>
                                     </a>
                                 </td>
