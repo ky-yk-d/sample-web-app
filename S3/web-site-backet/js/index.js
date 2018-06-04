@@ -5,6 +5,7 @@ var tasks = new Vue({
     data: {
         tasks:[],
         newTask: '',
+        newDetail: ''
     },
     computed: {
         sortedTasks: function(){
@@ -47,7 +48,8 @@ var tasks = new Vue({
                     axios.put(this.endpoint(),{
                         Item: {
                             id: new_id,
-                            taskname: this.newTask
+                            taskname: this.newTask,
+                            detail: this.newDetail
                         }
                     }).then(response => {
                         console.log('送信した');
@@ -57,6 +59,7 @@ var tasks = new Vue({
                         console.log(err);
                     });
                     this.newTask = '';
+                    this.newDetail = '';
                 } else {
                     console.log('エラーがあります');
                 }

@@ -20,8 +20,11 @@
     <div id="tasks" v-cloak>
         <div class="main" style="text-align: left">
             <div class="newTask">
-                <input v-validate="'required'" v-model="newTask" class="input" type="text" name="newtaskname" placeholder="新しいタスク名を入力してください（必須項目）" />
-                <div class="notification is-danger" v-if="errors.has('newtaskname')">
+                <div class="padding-bottom">
+                    <input v-validate="'required'" v-model="newTask" class="input is-primary is-medium" type="text" name="newtaskname" placeholder="新しいタスク名を入力してください（必須項目）" />
+                </div>
+                    <textarea class="textarea is-primary"  v-model="newDetail" name="newdetail" placeholder="タスクの詳細を入力してください" ></textarea>
+                    <div class="notification is-danger" v-if="errors.has('newtaskname')">
                         {{errors.first('newtaskname')}}
                 </div>
                 <div class="createButton">
@@ -46,19 +49,19 @@
                 </div>
             </div>
             <div class="tasklist">
-                <div class="cards" v-for="task in sortedTasks">
-                    <div class="card">
-                        <div class="card-content">
+                <div class="cards padding-bottom" v-for="task in sortedTasks">
+                    <div class="card padding">
+                        <div class="card-content padding">
                             <p class="title"> 
                             {{task.id}}. {{task.taskname}}
                             </p>
                             <p class="subtitle">
-                            {{task.taskname}}
+                            {{task.detail}}
                             </p>
                         </div>
-                        <footer class="card-footer">
-                            <span>
-                                <div class="deleteButton">
+                        <footer class="card-footer padding-top flex-reverse">
+                            <span class="deleteButton">
+                                <div>
                                     <a class="button is-danger is-outlined" v-on:click="deleteTask(task.id)">
                                         <span>Delete</span>
                                         <span class="icon is-small">
@@ -67,8 +70,8 @@
                                     </a> 
                                 </div>
                             </span>
-                       </footer>
-                        </div>
+                        </footer>
+                    </div>
                 </div>
                 <!--
                     <table class="table is-bordered is-striped is-fullwidth">

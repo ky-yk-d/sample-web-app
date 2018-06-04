@@ -15,6 +15,7 @@
     padding: 10px 10px 10px 10px;
 }
 .tasklist{
+    flex-basis: 500px;
     flex-grow: 5;
     padding: 10px 10px 10px 10px;
 
@@ -25,6 +26,23 @@
     text-align: right;
 }
 
+.flex-reverse{
+    flex-direction: row-reverse;
+}
+
 .deleteButton{
-    text-align: right;
+    padding-right: 10px;
+}
+
+.padding {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.padding-bottom{
+    padding-bottom: 20px;
+}
+
+.padding-top {
+    padding-top:10px;
 }
