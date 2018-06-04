@@ -1,3 +1,30 @@
 [v-cloak] {
     display: none;
 }
+
+.main {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 10px 10px 10px 10px;
+    padding-bottom: 10px;
+}
+.newTask {
+    flex-basis: 400px;
+    flex-grow: 1;
+    padding: 10px 10px 10px 10px;
+}
+.tasklist{
+    flex-grow: 5;
+    padding: 10px 10px 10px 10px;
+
+}
+
+.createButton{
+    padding: 10px 0px 10px 10px;
+    text-align: right;
+}
+
+.deleteButton{
+    text-align: right;
+}

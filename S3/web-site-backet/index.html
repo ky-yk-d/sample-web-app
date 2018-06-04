@@ -17,61 +17,89 @@
             <h2 class="subtitle">Vue.js版</h2>
         </div>
     </section>
-    <div class="main" style="text-align: left">
-        <div id="tasks" v-cloak>
-            <div>
+    <div id="tasks" v-cloak>
+        <div class="main" style="text-align: left">
+            <div class="newTask">
                 <input v-validate="'required'" v-model="newTask" class="input" type="text" name="newtaskname" placeholder="新しいタスク名を入力してください（必須項目）" />
                 <div class="notification is-danger" v-if="errors.has('newtaskname')">
                         {{errors.first('newtaskname')}}
                 </div>
-                <div v-if="errors.has('newtaskname')">
-                    <a class="button is-primary" disabled v-on:click="createTask">
-                        <span>
-                            Create
-                        </span>
-                        <span class="icon is-small">
+                <div class="createButton">
+                    <div v-if="errors.has('newtaskname')">
+                        <a class="button is-primary" disabled v-on:click="createTask">
+                            <span>
+                                Create
+                            </span>
+                            <span class="icon is-small">
                                 <i class="fas fa-plus"></i>
-                        </span>
-                    </a>
-                </div>
-                <div v-else>
-                    <a class="button is-primary" v-on:click="createTask">
-                        <span>Create</span>
-                        <span class="icon is-small">
+                            </span>
+                        </a>
+                    </div>
+                    <div v-else>
+                        <a class="button is-primary" v-on:click="createTask">
+                            <span>Create</span>
+                            <span class="icon is-small">
                                 <i class="fas fa-plus"></i>
-                        </span>
-                    </a>
+                            </span>
+                        </a>
+                    </div>
                 </div>
             </div>
             <div class="tasklist">
-                <table class="table is-bordered is-striped is-fullwidth">
-                    <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>Name</th>
-                            <th>Delete</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="task in sortedTasks">
-                            <td width="3px">{{ task.id }}</td>
-                            <td>{{ task.taskname }}</td>
-                            <td>
-                                <a class="button is-danger is-outlined" v-on:click="deleteTask(task.id)">
-                                    <span>Delete</span>
-                                    <span class="icon is-small">
-                                        <i class="fas fa-times"></i>
-                                    </span>
-                                </a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="cards" v-for="task in sortedTasks">
+                    <div class="card">
+                        <div class="card-content">
+                            <p class="title"> 
+                            {{task.id}}. {{task.taskname}}
+                            </p>
+                            <p class="subtitle">
+                            {{task.taskname}}
+                            </p>
+                        </div>
+                        <footer class="card-footer">
+                            <span>
+                                <div class="deleteButton">
+                                    <a class="button is-danger is-outlined" v-on:click="deleteTask(task.id)">
+                                        <span>Delete</span>
+                                        <span class="icon is-small">
+                                            <i class="fas fa-times"></i>
+                                        </span>
+                                    </a> 
+                                </div>
+                            </span>
+                       </footer>
+                        </div>
+                </div>
+                <!--
+                    <table class="table is-bordered is-striped is-fullwidth">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Name</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="task in sortedTasks">
+                                <td width="3px">{{ task.id }}</td>
+                                <td>{{ task.taskname }}</td>
+                                <td>
+                                    <a class="button is-danger is-outlined" v-on:click="deleteTask(task.id)">
+                                        <span>Delete</span>
+                                        <span class="icon is-small">
+                                            <i class="fas fa-times"></i>
+                                        </span>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                -->
+                </div>
             </div>
         </div>
-    </div>
-    <!-- Vue.js 開発バージョン、便利なコンソールの警告が含まれています -->
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <!-- Vue.js 開発バージョン、便利なコンソールの警告が含まれています -->
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <!-- axios -->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <!-- Vee-Validate -->
