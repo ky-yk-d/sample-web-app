@@ -16,7 +16,8 @@ exports.handler = (event, context, callback) => {
                 TableName: "tasks",
                 Item: {
                     "id": event.body.Item.id,
-                    "taskname": event.body.Item.taskname
+                    "taskname": event.body.Item.taskname,
+                    "detail": event.body.Item.detail
                 }
             };
             dynamo.put(params, callback);
