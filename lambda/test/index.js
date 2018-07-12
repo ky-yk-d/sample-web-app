@@ -2,37 +2,39 @@ const https = require('https');
 
 console.log('start');
 
+const options = {
+    hostname: 'l3uk6hufcf.execute-api.ap-northeast-1.amazonaws.com',
+    path: '/prod/sample-tasks',
+    PORT: 443,
+    headers: {
+        "Content-type": "application/json; charset=UTF-8",
+    },
+    method: 'PUT'
+};
+
 exports.handler = async (event, context, callback) => {
-    const options = {
-        hostname: 'l3uk6hufcf.execute-api.ap-northeast-1.amazonaws.com',
-        path: '/prod/sample-tasks',
-        PORT: 443,
-        headers: {
-            "Content-type": "application/json; charset=UTF-8",
-        },
-        method: 'PUT'
-    };
-    let res = https.request(options, function(res){
-        console.log('statusCode:', res.statusCode);
-    }).on('response',function(response){
-        console.log('---response---');
-        console.log(response);
-        // callback(null, 'success!');
-        return 'success!';
-    }).on('error', function(e){
-        console.log('error:', e.stack);
-        throw new Error('error thrown!');
-    });
-    let body = {
-        Item: {
-            id: 4,
-            taskname: 'testTask',
-            detail: new Date().toLocaleTimeString()
-        }
-    };
-    res.write(JSON.stringify(body));
-    res.end();
-    return 'end of async handler';
+    return new Promise((resolve, reject)=>{
+        let res = https.request(options, (res)=>{
+            console.log('statusCode:', res.statusCode);
+        }).on('response',function(response){
+            console.log('---response---');
+            console.log(response);
+            // callback(null, 'success!');
+            resolve('success & resolved');
+        }).on('error', function(e){
+            console.log('error:', e.stack);
+            reject('error & rejected');
+        });
+        let body = {
+            Item: {
+                id: 4,
+                taskname: 'testTask',
+                detail: new Date().toLocaleTimeString()
+            }
+        };
+        res.write(JSON.stringify(body));
+        res.end();
+        });
 };
 
 // let promise = this.handler(null,null,(res)=>{console.log('callback', res)});
