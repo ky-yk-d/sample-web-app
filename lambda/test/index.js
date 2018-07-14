@@ -19,7 +19,7 @@ exports.handler = async (event, context, callback) => {
         }).on('response',function(response){
             console.log('---response---');
             console.log(response);
-            // callback(null, 'success!');
+            callback('success!');
             resolve('success & resolved');
         }).on('error', function(e){
             console.log('error:', e.stack);
@@ -36,11 +36,6 @@ exports.handler = async (event, context, callback) => {
         res.end();
         });
 };
-
-// let promise = this.handler(null,null,(res)=>{console.log('callback', res)});
-// console.log(typeof(promise));
-// console.log(promise);
-// console.log('↑promise');
 
 let that = this;
 
