@@ -37,6 +37,29 @@ exports.handler = async (event, context, callback) => {
         });
 };
 
+async function implicitPromise(event, context, callback){
+    let res = https.request(options, (res)=>{
+        console.log('statusCode:', res.statusCode);
+    }).on('response',function(response){
+        console.log('---response---');
+        console.log(response);
+        callback('success!');
+        return 'success & resolved';
+    }).on('error', function(e){
+        console.log('error:', e.stack);
+        throw new Error('error & rejected');
+    });
+    let body = {
+        Item: {
+            id: 4,
+            taskname: 'testTask',
+            detail: new Date().toLocaleTimeString()
+        }
+    };
+    res.write(JSON.stringify(body));
+    res.end();
+};
+
 let that = this;
 
 async function asyncFunc(){
@@ -46,6 +69,10 @@ async function asyncFunc(){
     return 'end';
 }
 
-console.log('before');
-asyncFunc();  
-console.log('after');
+console.log('before asyncFunc');
+console.log(asyncFunc());  // Promise { pending }
+console.log('after asyncFunc');
+
+console.log('before implicitPromise');
+console.log(implicitPromise(null,null,(res)=>{console.log('callback', res)}));  // Promise { resolved }
+console.log('after implicitPromise');
