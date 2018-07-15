@@ -18,9 +18,18 @@ exports.handler = async (event, context, callback) => {
             console.log('statusCode:', res.statusCode);
         }).on('response',function(response){
             console.log('---response---');
-            console.log(response);
-            callback('success!');
-            resolve('success & resolved');
+            response.setEncoding('utf8');
+            let body = '';
+            console.log(body);
+            response.on('data', (chunk)=>{
+                body = body + chunk;
+                console.log('chunk:',chunk);  // chunkが空のオブジェクト
+                console.log('body:',body);
+            });
+            response.on('end', ()=>{
+                callback(body);
+                resolve('success & resolved');
+            })
         }).on('error', function(e){
             console.log('error:', e.stack);
             reject('error & rejected');
@@ -73,6 +82,6 @@ console.log('before asyncFunc');
 console.log(asyncFunc());  // Promise { pending }
 console.log('after asyncFunc');
 
-console.log('before implicitPromise');
-console.log(implicitPromise(null,null,(res)=>{console.log('callback', res)}));  // Promise { resolved }
-console.log('after implicitPromise');
+// console.log('before implicitPromise');
+// console.log(implicitPromise(null,null,(res)=>{console.log('callback', res)}));  // Promise { resolved }
+// console.log('after implicitPromise');
